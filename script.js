@@ -1,4 +1,9 @@
 /* =========================================
+   BIRTHDAY WEBSITE — COMPLETE JAVASCRIPT
+========================================= */
+
+
+/* =========================================
    ELEMENTS
 ========================================= */
 
@@ -29,120 +34,237 @@ const ambientLight =
 const filmTrack =
     document.querySelector(".film-track");
 
+const finalQuestionSection =
+    document.getElementById("finalQuestionSection");
+
+const yesButton =
+    document.getElementById("yesButton");
+
+const noButton =
+    document.getElementById("noButton");
+
+const noMessage =
+    document.getElementById("noMessage");
+
+const cinematicGallery =
+    document.getElementById("cinematicGallery");
+
+const loveLetterSection =
+    document.getElementById("loveLetterSection");
+
+const grandFinale =
+    document.getElementById("grandFinale");
+
+const birthdayMusic =
+    document.getElementById("birthdayMusic");
+
+
+/* =========================================
+   CINEMATIC ALBUM ORDER FIX
+========================================= */
+
+/*
+   This automatically places the album
+   BEFORE the YES / NO question.
+
+   Desired order:
+
+   Memories
+      ↓
+   Album
+      ↓
+   YES / NO
+      ↓
+   Love Letter
+      ↓
+   Grand Finale
+*/
+
+if (
+    cinematicGallery &&
+    finalQuestionSection
+) {
+
+    finalQuestionSection.parentNode.insertBefore(
+        cinematicGallery,
+        finalQuestionSection
+    );
+
+}
+
+
+/* =========================================
+   INITIAL ALBUM STATE
+========================================= */
+
+if (cinematicGallery) {
+
+    cinematicGallery.style.display = "none";
+
+}
+
+
+/* =========================================
+   INITIAL YES / NO STATE
+========================================= */
+
+if (finalQuestionSection) {
+
+    finalQuestionSection.style.display = "none";
+
+}
 
 
 /* =========================================
    CREATE STARS
 ========================================= */
 
-for (let i = 0; i < 120; i++) {
+if (starsContainer) {
 
-    const star =
-        document.createElement("div");
+    for (let i = 0; i < 120; i++) {
 
-    star.classList.add("star");
+        const star =
+            document.createElement("div");
 
-    star.style.left =
-        Math.random() * 100 + "%";
+        star.classList.add("star");
 
-    star.style.top =
-        Math.random() * 100 + "%";
+        star.style.left =
+            Math.random() * 100 + "%";
 
-    star.style.animationDelay =
-        Math.random() * 3 + "s";
+        star.style.top =
+            Math.random() * 100 + "%";
 
-    star.style.opacity =
-        Math.random() * 0.8;
+        star.style.animationDelay =
+            Math.random() * 3 + "s";
 
-    starsContainer.appendChild(star);
+        star.style.opacity =
+            Math.random() * 0.8;
+
+        starsContainer.appendChild(star);
+
+    }
+
 }
-
 
 
 /* =========================================
    OPEN BIRTHDAY SCENE
 ========================================= */
 
-surpriseButton.addEventListener(
-    "click",
-    function () {
+if (surpriseButton) {
 
-        welcomeSection.classList.add(
-            "fade-out"
-        );
+    surpriseButton.addEventListener(
+        "click",
+        function () {
+
+            if (welcomeSection) {
+
+                welcomeSection.classList.add(
+                    "fade-out"
+                );
+
+            }
 
 
-        setTimeout(function () {
+            setTimeout(
+                function () {
 
-            welcomeSection.style.display =
-                "none";
+                    if (welcomeSection) {
+
+                        welcomeSection.style.display =
+                            "none";
+
+                    }
 
 
-            birthdaySection.classList.add(
-                "scene-active"
+                    if (birthdaySection) {
+
+                        birthdaySection.classList.add(
+                            "scene-active"
+                        );
+
+                    }
+
+
+                    if (memorySection) {
+
+                        memorySection.classList.add(
+                            "scene-active"
+                        );
+
+                    }
+
+
+                    window.scrollTo({
+                        top: 0,
+                        behavior: "instant"
+                    });
+
+                },
+                1000
             );
 
+        }
+    );
 
-            /*
-                Activate memory section.
-
-                It becomes available after
-                the birthday scene.
-            */
-
-            memorySection.classList.add(
-                "scene-active"
-            );
+}
 
 
-            window.scrollTo({
-                top: 0,
-                behavior: "instant"
-            });
+/* =========================================
+   PREVENT BUTTON FOCUS
+========================================= */
 
+if (surpriseButton) {
 
-        }, 1000);
+    surpriseButton.addEventListener(
+        "mousedown",
+        function () {
 
-    }
-);
+            surpriseButton.blur();
 
+        }
+    );
+
+}
 
 
 /* =========================================
    HEART INTERACTION
 ========================================= */
 
-heartButton.addEventListener(
-    "click",
-    function () {
+if (heartButton) {
 
-        heartButton.classList.remove(
-            "heart-explode"
-        );
+    heartButton.addEventListener(
+        "click",
+        function () {
 
-
-        /*
-            Force browser to restart animation.
-        */
-
-        void heartButton.offsetWidth;
+            heartButton.classList.remove(
+                "heart-explode"
+            );
 
 
-        heartButton.classList.add(
-            "heart-explode"
-        );
+            void heartButton.offsetWidth;
 
 
-        tapMessage.textContent =
-            "You found my heart ❤️";
+            heartButton.classList.add(
+                "heart-explode"
+            );
 
 
-        createHeartBurst();
+            if (tapMessage) {
+
+                tapMessage.textContent =
+                    "You found my heart ❤️";
+
+            }
 
 
-    }
-);
+            createHeartBurst();
 
+        }
+    );
+
+}
 
 
 /* =========================================
@@ -177,58 +299,62 @@ function createHeartBurst() {
         particle.style.position =
             "fixed";
 
-
         particle.style.left =
             "50%";
-
 
         particle.style.top =
             "50%";
 
-
         particle.style.zIndex =
             "100";
-
 
         particle.style.pointerEvents =
             "none";
 
-
         particle.style.fontSize =
             Math.random() * 14 + 10 + "px";
-
 
         particle.style.color =
             "#ff4f88";
 
 
         const angle =
-            Math.random() * Math.PI * 2;
+            Math.random() *
+            Math.PI *
+            2;
 
 
         const distance =
-            Math.random() * 160 + 80;
+            Math.random() *
+            160 +
+            80;
 
 
         const x =
-            Math.cos(angle) * distance;
+            Math.cos(angle) *
+            distance;
 
 
         const y =
-            Math.sin(angle) * distance;
+            Math.sin(angle) *
+            distance;
 
 
         particle.animate(
 
             [
+
                 {
+
                     transform:
                         "translate(-50%, -50%) scale(0)",
 
                     opacity: 1
+
                 },
 
                 {
+
                     transform:
                         `translate(
                             calc(-50% + ${x}px),
@@ -237,18 +363,24 @@ function createHeartBurst() {
                         scale(1.2)`,
 
                     opacity: 0
+
                 }
+
             ],
 
             {
+
                 duration:
-                    Math.random() * 800 + 800,
+                    Math.random() *
+                    800 +
+                    800,
 
                 easing:
                     "cubic-bezier(0.16, 1, 0.3, 1)",
 
                 fill:
                     "forwards"
+
             }
 
         );
@@ -273,9 +405,8 @@ function createHeartBurst() {
 }
 
 
-
 /* =========================================
-   CREATE BIRTHDAY PARTICLES
+   BIRTHDAY PARTICLES
 ========================================= */
 
 const birthdayParticles =
@@ -288,11 +419,12 @@ birthdayParticles.forEach(
     function (particle) {
 
         particle.style.left =
-            Math.random() * 100 + "%";
+            Math.random() *
+            100 +
+            "%";
 
     }
 );
-
 
 
 /* =========================================
@@ -305,87 +437,93 @@ const revealElements =
     );
 
 
-const observer =
-    new IntersectionObserver(
+if (revealElements.length) {
 
-        function (entries) {
+    const observer =
+        new IntersectionObserver(
 
-            entries.forEach(
-                function (entry) {
+            function (entries) {
 
-                    if (
-                        entry.isIntersecting
-                    ) {
+                entries.forEach(
+                    function (entry) {
 
-                        entry.target.classList.add(
-                            "visible"
-                        );
+                        if (
+                            entry.isIntersecting
+                        ) {
+
+                            entry.target.classList.add(
+                                "visible"
+                            );
+
+                        }
 
                     }
+                );
 
-                }
-            );
+            },
 
-        },
+            {
+                threshold: 0.15
+            }
 
-        {
-            threshold: 0.15
-        }
-
-    );
-
-
-revealElements.forEach(
-    function (element) {
-
-        observer.observe(
-            element
         );
 
-    }
-);
 
+    revealElements.forEach(
+        function (element) {
+
+            observer.observe(
+                element
+            );
+
+        }
+    );
+
+}
 
 
 /* =========================================
    MOUSE PARALLAX
 ========================================= */
 
-birthdaySection.addEventListener(
-    "mousemove",
-    function (event) {
+if (birthdaySection) {
 
-        if (!ambientLight) {
-            return;
+    birthdaySection.addEventListener(
+        "mousemove",
+        function (event) {
+
+            if (!ambientLight) {
+                return;
+            }
+
+
+            const x =
+                (
+                    event.clientX /
+                    window.innerWidth -
+                    0.5
+                ) * 35;
+
+
+            const y =
+                (
+                    event.clientY /
+                    window.innerHeight -
+                    0.5
+                ) * 35;
+
+
+            ambientLight.style.transform =
+                `translate(${x}px, ${y}px)`;
+
         }
+    );
 
-
-        const x =
-            (
-                event.clientX /
-                window.innerWidth -
-                0.5
-            ) * 35;
-
-
-        const y =
-            (
-                event.clientY /
-                window.innerHeight -
-                0.5
-            ) * 35;
-
-
-        ambientLight.style.transform =
-            `translate(${x}px, ${y}px)`;
-
-    }
-);
-
+}
 
 
 /* =========================================
-   FILM STRIP SCROLL MOVEMENT
+   MEMORY FILM STRIP
 ========================================= */
 
 window.addEventListener(
@@ -394,6 +532,7 @@ window.addEventListener(
 
         if (
             !filmTrack ||
+            !memorySection ||
             !memorySection.classList.contains(
                 "scene-active"
             )
@@ -429,6 +568,15 @@ window.addEventListener(
 
 
         if (
+            totalDistance <= 0
+        ) {
+
+            return;
+
+        }
+
+
+        if (
             rect.top <= 0 &&
             rect.bottom >= viewport
         ) {
@@ -445,7 +593,8 @@ window.addEventListener(
 
 
             const movement =
-                progress * 850;
+                progress *
+                850;
 
 
             filmTrack.style.transform =
@@ -461,50 +610,8 @@ window.addEventListener(
 );
 
 
-
 /* =========================================
-   PREVENT ACCIDENTAL BUTTON FOCUS
-========================================= */
-
-surpriseButton.addEventListener(
-    "mousedown",
-    function () {
-
-        surpriseButton.blur();
-
-    }
-);
-
-
-
-/* =========================================
-   SCENE 4 — YES / NO QUESTION
-========================================= */
-
-const finalQuestionSection =
-    document.getElementById(
-        "finalQuestionSection"
-    );
-
-const yesButton =
-    document.getElementById(
-        "yesButton"
-    );
-
-const noButton =
-    document.getElementById(
-        "noButton"
-    );
-
-const noMessage =
-    document.getElementById(
-        "noMessage"
-    );
-
-
-
-/* =========================================
-   SHOW FINAL QUESTION
+   SHOW CINEMATIC ALBUM AFTER MEMORIES
 ========================================= */
 
 const memoryEnding =
@@ -513,48 +620,233 @@ const memoryEnding =
     );
 
 
-const finalQuestionObserver =
-    new IntersectionObserver(
-
-        function (entries) {
-
-            entries.forEach(
-                function (entry) {
-
-                    if (
-                        entry.isIntersecting
-                    ) {
-
-                        finalQuestionSection.classList.add(
-                            "scene-active"
-                        );
-
-                    }
-
-                }
-            );
-
-        },
-
-        {
-            threshold: 0.2
-        }
-
+const galleryEnding =
+    document.querySelector(
+        ".gallery-ending"
     );
 
 
+let albumShown = false;
+
+
+function showCinematicAlbum() {
+
+    if (
+        !cinematicGallery ||
+        albumShown
+    ) {
+
+        return;
+
+    }
+
+
+    albumShown = true;
+
+
+    cinematicGallery.style.display =
+        "block";
+
+
+    cinematicGallery.classList.add(
+        "scene-active"
+    );
+
+
+    window.setTimeout(
+        function () {
+
+            cinematicGallery.scrollIntoView({
+
+                behavior: "smooth",
+
+                block: "start"
+
+            });
+
+        },
+        100
+    );
+
+}
+
+
 /*
-    Watch the end of the memory section.
+   Watch the end of Memories.
 */
 
-if (memoryEnding) {
+if (
+    memoryEnding &&
+    cinematicGallery
+) {
 
-    finalQuestionObserver.observe(
+    const albumObserver =
+        new IntersectionObserver(
+
+            function (entries) {
+
+                entries.forEach(
+                    function (entry) {
+
+                        if (
+                            entry.isIntersecting
+                        ) {
+
+                            showCinematicAlbum();
+
+                            albumObserver.disconnect();
+
+                        }
+
+                    }
+                );
+
+            },
+
+            {
+                threshold: 0.15
+            }
+
+        );
+
+
+    albumObserver.observe(
         memoryEnding
     );
 
 }
 
+
+/* =========================================
+   SHOW YES / NO AFTER ALBUM
+========================================= */
+
+let questionShown = false;
+
+
+function showFinalQuestion() {
+
+    if (
+        !finalQuestionSection ||
+        questionShown
+    ) {
+
+        return;
+
+    }
+
+
+    questionShown = true;
+
+
+    finalQuestionSection.style.display =
+        "block";
+
+
+    finalQuestionSection.classList.add(
+        "scene-active"
+    );
+
+
+    finalQuestionSection.classList.add(
+        "visible"
+    );
+
+}
+
+
+/*
+   Watch the end of the album.
+*/
+
+if (
+    galleryEnding &&
+    finalQuestionSection
+) {
+
+    const questionObserver =
+        new IntersectionObserver(
+
+            function (entries) {
+
+                entries.forEach(
+                    function (entry) {
+
+                        if (
+                            entry.isIntersecting
+                        ) {
+
+                            showFinalQuestion();
+
+                            questionObserver.disconnect();
+
+                        }
+
+                    }
+                );
+
+            },
+
+            {
+                threshold: 0.2
+            }
+
+        );
+
+
+    questionObserver.observe(
+        galleryEnding
+    );
+
+}
+
+
+/* =========================================
+   FALLBACK:
+   IF GALLERY ENDING IS NOT AVAILABLE
+========================================= */
+
+if (
+    !galleryEnding &&
+    cinematicGallery &&
+    finalQuestionSection
+) {
+
+    const galleryObserver =
+        new IntersectionObserver(
+
+            function (entries) {
+
+                entries.forEach(
+                    function (entry) {
+
+                        if (
+                            entry.isIntersecting
+                        ) {
+
+                            showFinalQuestion();
+
+                            galleryObserver.disconnect();
+
+                        }
+
+                    }
+                );
+
+            },
+
+            {
+                threshold: 0.8
+            }
+
+        );
+
+
+    galleryObserver.observe(
+        cinematicGallery
+    );
+
+}
 
 
 /* =========================================
@@ -583,27 +875,23 @@ const noMessages = [
 ];
 
 
-
 function moveNoButton() {
+
+    if (
+        !noButton ||
+        !finalQuestionSection
+    ) {
+
+        return;
+
+    }
+
 
     noAttempts++;
 
 
-    const section =
-        finalQuestionSection;
-
-
     const button =
         noButton;
-
-
-    /*
-        Make the button position itself
-        relative to the screen/section.
-    */
-
-    const sectionRect =
-        section.getBoundingClientRect();
 
 
     const buttonWidth =
@@ -614,211 +902,212 @@ function moveNoButton() {
         button.offsetHeight;
 
 
-    /*
-        Keep it away from the edges.
-    */
-
-    const padding = 20;
+    const padding =
+        20;
 
 
     const maxX =
-        window.innerWidth -
-        buttonWidth -
-        padding * 2;
+        Math.max(
+            padding,
+            window.innerWidth -
+            buttonWidth -
+            padding
+        );
 
 
     const maxY =
-        window.innerHeight -
-        buttonHeight -
-        padding * 2;
+        Math.max(
+            padding,
+            window.innerHeight -
+            buttonHeight -
+            padding
+        );
 
-
-    /*
-        Random position.
-    */
 
     let randomX =
         Math.random() *
-        maxX +
+        (
+            maxX -
+            padding
+        ) +
         padding;
 
 
     let randomY =
         Math.random() *
-        maxY +
+        (
+            maxY -
+            padding
+        ) +
         padding;
 
 
-    /*
-        Don't put it too close
-        to the YES button.
-    */
+    if (yesButton) {
 
-    const yesRect =
-        yesButton.getBoundingClientRect();
+        const yesRect =
+            yesButton.getBoundingClientRect();
 
 
-    const distanceX =
-        Math.abs(
-            randomX -
-            yesRect.left
-        );
+        const distanceX =
+            Math.abs(
+                randomX -
+                yesRect.left
+            );
 
 
-    const distanceY =
-        Math.abs(
-            randomY -
-            yesRect.top
-        );
+        const distanceY =
+            Math.abs(
+                randomY -
+                yesRect.top
+            );
 
-
-    if (
-        distanceX < 180 &&
-        distanceY < 120
-    ) {
-
-        randomX += 220;
 
         if (
-            randomX >
-            maxX
+            distanceX < 180 &&
+            distanceY < 120
         ) {
 
-            randomX -= 440;
+            randomX += 220;
+
+
+            if (
+                randomX >
+                maxX
+            ) {
+
+                randomX -= 440;
+
+            }
 
         }
 
     }
 
 
-    /*
-        Switch to fixed positioning.
-    */
-
     button.style.position =
         "fixed";
 
 
     button.style.left =
-        randomX + "px";
+        randomX +
+        "px";
 
 
     button.style.top =
-        randomY + "px";
+        randomY +
+        "px";
 
 
     button.style.zIndex =
         "9999";
 
 
-    /*
-        Rotate slightly.
-    */
-
     const rotation =
-        Math.random() * 16 - 8;
+        Math.random() *
+        16 -
+        8;
 
 
     button.style.transform =
         `rotate(${rotation}deg) scale(1.05)`;
 
 
-    /*
-        Change message.
-    */
+    if (noMessage) {
 
-    noMessage.textContent =
-        noMessages[
-            Math.min(
-                noAttempts - 1,
-                noMessages.length - 1
-            )
-        ];
+        noMessage.textContent =
+            noMessages[
+                Math.min(
+                    noAttempts - 1,
+                    noMessages.length - 1
+                )
+            ];
 
 
-    noMessage.style.opacity =
-        "1";
+        noMessage.style.opacity =
+            "1";
 
 
-    /*
-        After a moment, fade message.
-    */
-
-    clearTimeout(
-        window.noMessageTimer
-    );
-
-
-    window.noMessageTimer =
-        setTimeout(
-            function () {
-
-                noMessage.style.opacity =
-                    "0";
-
-            },
-            1800
+        clearTimeout(
+            window.noMessageTimer
         );
+
+
+        window.noMessageTimer =
+            setTimeout(
+                function () {
+
+                    noMessage.style.opacity =
+                        "0";
+
+                },
+                1800
+            );
+
+    }
 
 }
 
 
-
 /* =========================================
-   DESKTOP — MOUSE APPROACH
+   NO BUTTON — DESKTOP
 ========================================= */
 
-noButton.addEventListener(
-    "mouseenter",
-    function () {
+if (noButton) {
 
-        moveNoButton();
+    noButton.addEventListener(
+        "mouseenter",
+        function () {
 
-    }
-);
+            moveNoButton();
 
+        }
+    );
 
-
-/* =========================================
-   MOBILE — TOUCH
-========================================= */
-
-noButton.addEventListener(
-    "touchstart",
-    function (event) {
-
-        event.preventDefault();
-
-        moveNoButton();
-
-    },
-    {
-        passive: false
-    }
-);
-
+}
 
 
 /* =========================================
-   NO CLICK BACKUP
+   NO BUTTON — MOBILE
 ========================================= */
 
-noButton.addEventListener(
-    "click",
-    function (event) {
+if (noButton) {
 
-        event.preventDefault();
+    noButton.addEventListener(
+        "touchstart",
+        function (event) {
 
-        moveNoButton();
+            event.preventDefault();
 
-    }
-);
+            moveNoButton();
 
+        },
+        {
+            passive: false
+        }
+    );
+
+}
 
 
 /* =========================================
-   YES BUTTON → LOVE LETTER
+   NO BUTTON — CLICK BACKUP
 ========================================= */
+
+if (noButton) {
+
+    noButton.addEventListener(
+        "click",
+        function (event) {
+
+            event.preventDefault();
+
+            moveNoButton();
+
+        }
+    );
+
+}
+
 
 /* =========================================
    YES BUTTON → LOVE LETTER
@@ -830,13 +1119,15 @@ if (yesButton) {
         "click",
         function () {
 
-            /* =================================
-               YES BUTTON ANIMATION
-            ================================= */
+            if (
+                finalQuestionSection
+            ) {
 
-            finalQuestionSection.classList.add(
-                "yes-selected"
-            );
+                finalQuestionSection.classList.add(
+                    "yes-selected"
+                );
+
+            }
 
 
             yesButton.textContent =
@@ -847,105 +1138,74 @@ if (yesButton) {
                 "scale(1.12)";
 
 
-            noButton.style.opacity =
-                "0";
+            if (noButton) {
 
+                noButton.style.opacity =
+                    "0";
 
-            noButton.style.pointerEvents =
-                "none";
+                noButton.style.pointerEvents =
+                    "none";
 
+            }
 
-            /* =================================
-               HEART EXPLOSION
-            ================================= */
 
             createFinalHeartBurst();
 
 
-            /* =================================
-               WAIT FOR HEART ANIMATION
-            ================================= */
-
             setTimeout(
                 function () {
 
-                    /* =============================
-                       GET LOVE LETTER
-                    ============================= */
-
-                    const loveLetterSection =
+                    const letter =
                         document.getElementById(
                             "loveLetterSection"
                         );
 
 
-                    /* =============================
-                       GET CINEMATIC ALBUM
-                    ============================= */
+                    if (
+                        finalQuestionSection
+                    ) {
 
-                    const cinematicGallery =
-                        document.getElementById(
-                            "cinematicGallery"
-                        );
-
-
-                    /* =============================
-                       HIDE YES / NO
-                    ============================= */
-
-                    finalQuestionSection.classList.remove(
-                        "scene-active"
-                    );
-
-
-                    finalQuestionSection.style.display =
-                        "none";
-
-
-                    /* =============================
-                       HIDE CINEMATIC ALBUM
-                       
-                       This prevents the album from
-                       appearing during the transition.
-                    ============================= */
-
-                    if (cinematicGallery) {
-
-                        cinematicGallery.classList.remove(
+                        finalQuestionSection.classList.remove(
                             "scene-active"
                         );
+
+
+                        finalQuestionSection.style.display =
+                            "none";
 
                     }
 
 
-                    /* =============================
-                       SHOW LOVE LETTER
-                    ============================= */
+                    if (
+                        cinematicGallery
+                    ) {
 
-                    if (loveLetterSection) {
+                        cinematicGallery.style.display =
+                            "none";
 
-                        loveLetterSection.style.display =
+                    }
+
+
+                    if (letter) {
+
+                        letter.style.display =
                             "block";
 
 
-                        loveLetterSection.classList.add(
+                        letter.classList.add(
                             "scene-active"
                         );
 
 
-                        loveLetterSection.classList.add(
+                        letter.classList.add(
                             "visible"
                         );
 
 
-                        /* =========================
-                           DIRECT SCROLL
-                        ========================= */
-
                         requestAnimationFrame(
                             function () {
 
-                                loveLetterSection.scrollIntoView({
+                                letter.scrollIntoView({
 
                                     behavior:
                                         "smooth",
@@ -955,10 +1215,6 @@ if (yesButton) {
 
                                 });
 
-
-                                /* =====================
-                                   START LETTER ANIMATION
-                                ===================== */
 
                                 setTimeout(
                                     function () {
@@ -984,7 +1240,6 @@ if (yesButton) {
 }
 
 
-
 /* =========================================
    FINAL HEART EXPLOSION
 ========================================= */
@@ -992,12 +1247,14 @@ if (yesButton) {
 function createFinalHeartBurst() {
 
     const symbols = [
+
         "❤️",
         "♡",
         "💕",
         "💗",
         "✨",
         "♥"
+
     ];
 
 
@@ -1043,7 +1300,8 @@ function createFinalHeartBurst() {
 
 
         particle.style.fontSize =
-            Math.random() * 20 +
+            Math.random() *
+            20 +
             10 +
             "px";
 
@@ -1075,6 +1333,7 @@ function createFinalHeartBurst() {
             [
 
                 {
+
                     transform:
                         "translate(-50%, -50%) scale(0)",
 
@@ -1083,16 +1342,18 @@ function createFinalHeartBurst() {
                 },
 
                 {
+
                     transform:
                         "translate(-50%, -50%) scale(1.2)",
 
                     opacity: 1,
 
-                    offset: .15
+                    offset: 0.15
 
                 },
 
                 {
+
                     transform:
                         `translate(
                             calc(-50% + ${x}px),
@@ -1143,41 +1404,38 @@ function createFinalHeartBurst() {
 }
 
 
-
 /* =========================================
    LOVE LETTER REVEAL
 ========================================= */
 
 function revealLoveLetter() {
 
-
-    const loveLetterSection =
+    const letter =
         document.getElementById(
             "loveLetterSection"
         );
 
 
-    if (!loveLetterSection) {
+    if (!letter) {
         return;
     }
 
 
     const paragraphs =
-        loveLetterSection.querySelectorAll(
+        letter.querySelectorAll(
             ".letter-paragraph"
         );
 
 
     paragraphs.forEach(
-        function (paragraph, index) {
-
-            /*
-                Reset first so the animation
-                always starts correctly.
-            */
+        function (
+            paragraph,
+            index
+        ) {
 
             paragraph.style.opacity =
                 "0";
+
 
             paragraph.style.transform =
                 "translateY(30px)";
@@ -1188,6 +1446,7 @@ function revealLoveLetter() {
 
                     paragraph.style.opacity =
                         "1";
+
 
                     paragraph.style.transform =
                         "translateY(0)";
@@ -1203,95 +1462,8 @@ function revealLoveLetter() {
 }
 
 
-
 /* =========================================
-   SCENE 6 — GRAND FINALE
-========================================= */
-
-const grandFinale =
-    document.getElementById(
-        "grandFinale"
-    );
-
-
-
-/* =========================================
-   SHOW GRAND FINALE
-========================================= */
-
-function showGrandFinale() {
-
-    if (!grandFinale) {
-        return;
-    }
-
-
-    /*
-        Hide Love Letter.
-    */
-
-    const loveLetterSection =
-        document.getElementById(
-            "loveLetterSection"
-        );
-
-
-    if (loveLetterSection) {
-
-        loveLetterSection.style.display =
-            "none";
-
-        loveLetterSection.classList.remove(
-            "scene-active"
-        );
-
-    }
-
-
-    /*
-        Show Grand Finale.
-    */
-
-    grandFinale.style.display =
-        "flex";
-
-
-    grandFinale.classList.add(
-        "scene-active"
-    );
-
-
-    /*
-        Start from the beginning
-        of the finale.
-    */
-
-    setTimeout(
-        function () {
-
-            grandFinale.scrollIntoView({
-
-                behavior:
-                    "smooth",
-
-                block:
-                    "start"
-
-            });
-
-        },
-        100
-    );
-
-
-    createFinaleHeartBurst();
-
-}
-
-
-
-/* =========================================
-   DETECT END OF LOVE LETTER
+   GRAND FINALE
 ========================================= */
 
 const letterContinue =
@@ -1300,7 +1472,10 @@ const letterContinue =
     );
 
 
-if (letterContinue) {
+if (
+    letterContinue &&
+    grandFinale
+) {
 
     const finaleObserver =
         new IntersectionObserver(
@@ -1326,8 +1501,7 @@ if (letterContinue) {
             },
 
             {
-                threshold:
-                    0.6
+                threshold: 0.6
             }
 
         );
@@ -1339,6 +1513,137 @@ if (letterContinue) {
 
 }
 
+
+/* =========================================
+   FINALE TRANSITION OVERLAY
+========================================= */
+
+let finaleOverlay = null;
+
+
+function createFinaleOverlay() {
+
+    if (finaleOverlay) {
+        return;
+    }
+
+
+    finaleOverlay =
+        document.createElement(
+            "div"
+        );
+
+
+    finaleOverlay.className =
+        "finale-transition-overlay";
+
+
+    document.body.appendChild(
+        finaleOverlay
+    );
+
+}
+
+
+/* Create it immediately */
+
+createFinaleOverlay();
+
+
+/* =========================================
+   CINEMATIC FINALE TRANSITION
+========================================= */
+
+function cinematicFinaleTransition() {
+
+    if (
+        !loveLetterSection ||
+        !grandFinale
+    ) {
+
+        return;
+
+    }
+
+
+    createFinaleOverlay();
+
+
+    finaleOverlay.classList.add(
+        "active"
+    );
+
+
+    loveLetterSection.classList.add(
+        "letter-ending"
+    );
+
+
+    setTimeout(
+        function () {
+
+            loveLetterSection.style.display =
+                "none";
+
+
+            grandFinale.style.display =
+                "flex";
+
+
+            grandFinale.classList.add(
+                "scene-active"
+            );
+
+
+            void grandFinale.offsetWidth;
+
+
+            grandFinale.classList.add(
+                "finale-revealed"
+            );
+
+
+            setTimeout(
+                function () {
+
+                    startGrandFinaleReveal();
+
+                },
+                800
+            );
+
+
+            grandFinale.scrollIntoView({
+
+                behavior:
+                    "instant",
+
+                block:
+                    "start"
+
+            });
+
+        },
+        1500
+    );
+
+
+    setTimeout(
+        function () {
+
+            if (finaleOverlay) {
+
+                finaleOverlay.classList.remove(
+                    "active"
+                );
+
+            }
+
+        },
+        3500
+    );
+
+}
 
 
 /* =========================================
@@ -1364,7 +1669,6 @@ function createFinaleHeartBurst() {
         i < 35;
         i++
     ) {
-
 
         const particle =
             document.createElement(
@@ -1402,7 +1706,8 @@ function createFinaleHeartBurst() {
 
 
         particle.style.fontSize =
-            Math.random() * 18 +
+            Math.random() *
+            18 +
             10 +
             "px";
 
@@ -1452,7 +1757,7 @@ function createFinaleHeartBurst() {
                         1,
 
                     offset:
-                        .15
+                        0.15
 
                 },
 
@@ -1509,17 +1814,8 @@ function createFinaleHeartBurst() {
 }
 
 
-
 /* =========================================
    BIRTHDAY MUSIC
-========================================= */
-
-const birthdayMusic =
-    document.getElementById("birthdayMusic");
-
-
-/* =========================================
-   START MUSIC
 ========================================= */
 
 function startBirthdayMusic() {
@@ -1529,42 +1825,41 @@ function startBirthdayMusic() {
     }
 
 
-    /*
-        If the song is already playing,
-        don't restart it.
-    */
-
     if (!birthdayMusic.paused) {
         return;
     }
 
 
-    birthdayMusic.volume = 0.45;
+    birthdayMusic.volume =
+        0.45;
 
 
     birthdayMusic.play()
-        .then(function () {
+        .then(
+            function () {
 
-            console.log(
-                "❤️ Birthday music started"
-            );
+                console.log(
+                    "❤️ Birthday music started"
+                );
 
-        })
-        .catch(function (error) {
+            }
+        )
+        .catch(
+            function (error) {
 
-            console.log(
-                "Music could not start:",
-                error
-            );
+                console.log(
+                    "Music could not start:",
+                    error
+                );
 
-        });
+            }
+        );
 
 }
 
 
-
 /* =========================================
-   START MUSIC WHEN SHE OPENS SURPRISE
+   START MUSIC WHEN SURPRISE OPENS
 ========================================= */
 
 if (surpriseButton) {
@@ -1572,30 +1867,6 @@ if (surpriseButton) {
     surpriseButton.addEventListener(
         "click",
         function () {
-                    /* START BIRTHDAY MUSIC */
-
-        if (birthdayMusic) {
-
-            birthdayMusic.volume = 0.45;
-
-            birthdayMusic.play()
-                .then(function () {
-
-                    console.log(
-                        "❤️ Music started"
-                    );
-
-                })
-                .catch(function (error) {
-
-                    console.log(
-                        "Music error:",
-                        error
-                    );
-
-                });
-
-        }
 
             startBirthdayMusic();
 
@@ -1603,7 +1874,6 @@ if (surpriseButton) {
     );
 
 }
-
 
 
 /* =========================================
@@ -1618,7 +1888,7 @@ const galleryItems =
 
 if (galleryItems.length) {
 
-    const galleryObserver =
+    const galleryItemObserver =
         new IntersectionObserver(
 
             function (entries) {
@@ -1652,7 +1922,7 @@ if (galleryItems.length) {
     galleryItems.forEach(
         function (item) {
 
-            galleryObserver.observe(
+            galleryItemObserver.observe(
                 item
             );
 
@@ -1660,7 +1930,6 @@ if (galleryItems.length) {
     );
 
 }
-
 
 
 /* =========================================
@@ -1720,7 +1989,8 @@ window.addEventListener(
 
 
                 const movement =
-                    distance * -0.035;
+                    distance *
+                    -0.035;
 
 
                 image.style.transform =
@@ -1736,155 +2006,8 @@ window.addEventListener(
         passive: true
     }
 );
-/* =========================================
-   LOVE LETTER → GRAND FINALE TRANSITION
-========================================= */
-
-const loveLetter =
-    document.getElementById(
-        "loveLetterSection"
-    );
-
-const finale =
-    document.getElementById(
-        "grandFinale"
-    );
 
 
-/* =========================================
-   CREATE TRANSITION OVERLAY
-========================================= */
-
-const finaleOverlay =
-    document.createElement(
-        "div"
-    );
-
-finaleOverlay.className =
-    "finale-transition-overlay";
-
-document.body.appendChild(
-    finaleOverlay
-);
-
-
-
-/* =========================================
-   CINEMATIC FINALE TRANSITION
-========================================= */
-
-function cinematicFinaleTransition() {
-
-    if (!loveLetter || !finale) {
-        return;
-    }
-
-
-    /*
-        Start dark transition.
-    */
-
-    finaleOverlay.classList.add(
-        "active"
-    );
-
-
-    /*
-        Fade Love Letter.
-    */
-
-    loveLetter.classList.add(
-        "letter-ending"
-    );
-
-
-    /*
-        Give the darkness time
-        to cover the screen.
-    */
-
-    setTimeout(
-        function () {
-
-            /*
-                Hide Love Letter.
-            */
-
-            loveLetter.style.display =
-                "none";
-
-
-            /*
-                Show Grand Finale.
-            */
-
-            finale.style.display =
-                "flex";
-
-
-            finale.classList.add(
-                "scene-active"
-            );
-
-
-            /*
-                Force browser repaint.
-            */
-
-            void finale.offsetWidth;
-
-
-            /*
-                Reveal Grand Finale.
-            */
-
-            finale.classList.add(
-                "finale-revealed"
-            );
-            setTimeout(
-    function () {
-
-        startGrandFinaleReveal();
-
-    },
-    800
-);
-
-
-            /*
-                Scroll to beginning.
-            */
-
-            finale.scrollIntoView({
-
-    behavior: "instant",
-
-    block: "start"
-
-});
-
-        },
-        1500
-    );
-
-
-    /*
-        Remove overlay after
-        transition finishes.
-    */
-
-    setTimeout(
-        function () {
-
-            finaleOverlay.classList.remove(
-                "active"
-            );
-
-        },
-        3500
-    );
-
-}
 /* =========================================
    PREMIUM CURSOR GLOW
 ========================================= */
@@ -1898,6 +2021,7 @@ document.addEventListener(
             event.clientX + "px"
         );
 
+
         document.documentElement.style.setProperty(
             "--cursor-y",
             event.clientY + "px"
@@ -1905,48 +2029,36 @@ document.addEventListener(
 
     }
 );
+
+
 /* =========================================
    GRAND FINALE SEQUENTIAL REVEAL
 ========================================= */
 
 function startGrandFinaleReveal() {
 
-    const finale =
-        document.getElementById(
-            "grandFinale"
-        );
-
-
-    if (!finale) {
+    if (!grandFinale) {
         return;
     }
 
 
-    /*
-        Find the existing elements.
-    */
-
     const lines =
-        finale.querySelectorAll(
+        grandFinale.querySelectorAll(
             ".finale-line"
         );
 
 
     const birthdayMessage =
-        finale.querySelector(
+        grandFinale.querySelector(
             ".final-birthday-message"
         );
 
 
     const finalHeart =
-        finale.querySelector(
+        grandFinale.querySelector(
             ".final-heart-small"
         );
 
-
-    /*
-        Reset everything.
-    */
 
     lines.forEach(
         function (line) {
@@ -1977,12 +2089,11 @@ function startGrandFinaleReveal() {
     }
 
 
-    /*
-        Reveal each line.
-    */
-
     lines.forEach(
-        function (line, index) {
+        function (
+            line,
+            index
+        ) {
 
             setTimeout(
                 function () {
@@ -1992,19 +2103,13 @@ function startGrandFinaleReveal() {
                     );
 
                 },
-
                 1000 +
                 index * 1000
-
             );
 
         }
     );
 
-
-    /*
-        Birthday message.
-    */
 
     if (birthdayMessage) {
 
@@ -2016,19 +2121,14 @@ function startGrandFinaleReveal() {
                 );
 
             },
-
             1000 +
-            lines.length * 1000 +
+            lines.length *
+            1000 +
             700
-
         );
 
     }
 
-
-    /*
-        Final heart.
-    */
 
     if (finalHeart) {
 
@@ -2040,13 +2140,52 @@ function startGrandFinaleReveal() {
                 );
 
             },
-
             1000 +
-            lines.length * 1000 +
+            lines.length *
+            1000 +
             2200
-
         );
 
     }
 
+
+    createFinaleHeartBurst();
+
 }
+
+
+/* =========================================
+   SAFETY RESET ON PAGE LOAD
+========================================= */
+
+window.addEventListener(
+    "load",
+    function () {
+
+        /*
+           Keep the album hidden until
+           the Memories section is reached.
+        */
+
+        if (cinematicGallery) {
+
+            cinematicGallery.style.display =
+                "none";
+
+        }
+
+
+        /*
+           Keep YES / NO hidden until
+           the album is completed.
+        */
+
+        if (finalQuestionSection) {
+
+            finalQuestionSection.style.display =
+                "none";
+
+        }
+
+    }
+);
