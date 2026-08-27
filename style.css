@@ -6554,3 +6554,73 @@ section {
 /* =========================================================
    END GALLERY FIX
 ========================================================= */
+/* =========================================================
+   FINAL FIX — KEEP GRAND FINALE HIDDEN
+   UNTIL LOVE LETTER IS COMPLETED
+========================================================= */
+
+#grandFinale {
+    display: none !important;
+    visibility: hidden !important;
+    opacity: 0 !important;
+    pointer-events: none !important;
+}
+
+/* Only show finale when JavaScript explicitly activates it */
+#grandFinale.scene-active,
+#grandFinale.finale-revealed {
+    display: flex !important;
+    visibility: visible !important;
+    opacity: 1 !important;
+    pointer-events: auto !important;
+}
+
+
+/* =========================================================
+   PREVENT THE FINALE FROM ANIMATING WHILE HIDDEN
+========================================================= */
+
+#grandFinale:not(.scene-active) *,
+#grandFinale:not(.finale-revealed) * {
+    animation-play-state: paused !important;
+}
+
+
+/* =========================================================
+   GALLERY / QUESTION / LETTER
+========================================================= */
+
+#cinematicGallery {
+    overflow: hidden;
+}
+
+#finalQuestionSection {
+    overflow: hidden;
+}
+
+
+/* =========================================================
+   GALLERY PHOTOS
+========================================================= */
+
+#cinematicGallery .gallery-item {
+    height: auto !important;
+    min-height: 0 !important;
+}
+
+#cinematicGallery .gallery-item img,
+#cinematicGallery .gallery-image {
+    height: auto !important;
+    max-height: 75vh !important;
+    object-fit: contain !important;
+    object-position: center !important;
+}
+
+
+/* gallery3 — complete image */
+#cinematicGallery img[src*="gallery3.jpg"] {
+    height: auto !important;
+    max-height: 75vh !important;
+    object-fit: contain !important;
+    object-position: center !important;
+}
