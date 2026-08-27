@@ -6419,3 +6419,138 @@ section {
     }
 
 }
+/* =========================================================
+   FINAL CINEMATIC GALLERY FIX
+   KEEP ALL EXISTING CSS ABOVE THIS
+========================================================= */
+
+#cinematicGallery {
+    width: 100%;
+    position: relative;
+    overflow: hidden;
+    padding: 80px 0;
+}
+
+/* Each gallery photo must NOT become a full-screen page */
+#cinematicGallery .gallery-item {
+    width: min(900px, 90vw) !important;
+    height: auto !important;
+    min-height: 0 !important;
+    margin: 0 auto 90px !important;
+    position: relative;
+    overflow: hidden;
+    border-radius: 24px;
+}
+
+/* Gallery images */
+#cinematicGallery .gallery-item img,
+#cinematicGallery .gallery-image {
+    display: block !important;
+    width: 100% !important;
+    height: auto !important;
+    max-width: 100% !important;
+    max-height: 75vh !important;
+    object-fit: contain !important;
+    object-position: center center !important;
+    margin: 0 auto !important;
+}
+
+/* =========================================================
+   GALLERY 3 — SHOW THE COMPLETE PHOTO
+========================================================= */
+
+#cinematicGallery img[src*="gallery3.jpg"] {
+    width: 100% !important;
+    height: auto !important;
+    max-width: 100% !important;
+    max-height: 75vh !important;
+    object-fit: contain !important;
+    object-position: center center !important;
+}
+
+
+/* =========================================================
+   PREVENT FULL-SCREEN GALLERY ITEMS
+========================================================= */
+
+#cinematicGallery .gallery-item {
+    aspect-ratio: auto !important;
+}
+
+#cinematicGallery .gallery-item::before {
+    display: none !important;
+}
+
+
+/* =========================================================
+   GALLERY IMAGE WRAPPER
+========================================================= */
+
+#cinematicGallery .gallery-image-wrap {
+    width: 100% !important;
+    height: auto !important;
+    min-height: 0 !important;
+    overflow: hidden;
+}
+
+
+/* =========================================================
+   MOBILE
+========================================================= */
+
+@media (max-width: 768px) {
+
+    #cinematicGallery {
+        padding: 50px 0;
+    }
+
+    #cinematicGallery .gallery-item {
+        width: 92vw !important;
+        height: auto !important;
+        min-height: 0 !important;
+        margin-bottom: 55px !important;
+        border-radius: 18px;
+    }
+
+    #cinematicGallery .gallery-item img,
+    #cinematicGallery .gallery-image {
+        width: 100% !important;
+        height: auto !important;
+        max-height: 70vh !important;
+        object-fit: contain !important;
+    }
+
+    #cinematicGallery img[src*="gallery3.jpg"] {
+        width: 100% !important;
+        height: auto !important;
+        max-height: 70vh !important;
+        object-fit: contain !important;
+    }
+
+}
+
+
+/* =========================================================
+   KEEP GALLERY ENDING NORMAL
+========================================================= */
+
+#cinematicGallery .gallery-ending {
+    width: 100%;
+    position: relative;
+    clear: both;
+}
+
+
+/* =========================================================
+   IMPORTANT — DON'T LET GALLERY HIDE ITS IMAGES
+========================================================= */
+
+#cinematicGallery.scene-active {
+    visibility: visible;
+    opacity: 1;
+}
+
+
+/* =========================================================
+   END GALLERY FIX
+========================================================= */
