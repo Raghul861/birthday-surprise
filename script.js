@@ -1,5 +1,6 @@
 /* =========================================
-   BIRTHDAY WEBSITE — COMPLETE JAVASCRIPT
+   BIRTHDAY SURPRISE WEBSITE
+   COMPLETE SCRIPT
 ========================================= */
 
 
@@ -34,6 +35,9 @@ const ambientLight =
 const filmTrack =
     document.querySelector(".film-track");
 
+const cinematicGallery =
+    document.getElementById("cinematicGallery");
+
 const finalQuestionSection =
     document.getElementById("finalQuestionSection");
 
@@ -46,13 +50,16 @@ const noButton =
 const noMessage =
     document.getElementById("noMessage");
 
-const cinematicGallery =
-    document.getElementById("cinematicGallery");
+const memoryEnding =
+    document.querySelector(".memory-ending");
 
-const loveLetterSection =
+const galleryEnding =
+    document.querySelector(".gallery-ending");
+
+const loveLetter =
     document.getElementById("loveLetterSection");
 
-const grandFinale =
+const finale =
     document.getElementById("grandFinale");
 
 const birthdayMusic =
@@ -60,58 +67,33 @@ const birthdayMusic =
 
 
 /* =========================================
-   CINEMATIC ALBUM ORDER FIX
+   INITIAL SCENE STATE
 ========================================= */
 
 /*
-   This automatically places the album
-   BEFORE the YES / NO question.
-
-   Desired order:
-
-   Memories
-      ↓
-   Album
-      ↓
-   YES / NO
-      ↓
-   Love Letter
-      ↓
-   Grand Finale
+   IMPORTANT:
+   Album and final question must NOT appear
+   until their correct time.
 */
-
-if (
-    cinematicGallery &&
-    finalQuestionSection
-) {
-
-    finalQuestionSection.parentNode.insertBefore(
-        cinematicGallery,
-        finalQuestionSection
-    );
-
-}
-
-
-/* =========================================
-   INITIAL ALBUM STATE
-========================================= */
 
 if (cinematicGallery) {
 
-    cinematicGallery.style.display = "none";
+    cinematicGallery.classList.remove(
+        "scene-active"
+    );
 
+    cinematicGallery.style.display =
+        "none";
 }
-
-
-/* =========================================
-   INITIAL YES / NO STATE
-========================================= */
 
 if (finalQuestionSection) {
 
-    finalQuestionSection.style.display = "none";
+    finalQuestionSection.classList.remove(
+        "scene-active"
+    );
 
+    finalQuestionSection.style.display =
+        "none";
 }
 
 
@@ -141,9 +123,7 @@ if (starsContainer) {
             Math.random() * 0.8;
 
         starsContainer.appendChild(star);
-
     }
-
 }
 
 
@@ -162,9 +142,7 @@ if (surpriseButton) {
                 welcomeSection.classList.add(
                     "fade-out"
                 );
-
             }
-
 
             setTimeout(
                 function () {
@@ -173,27 +151,23 @@ if (surpriseButton) {
 
                         welcomeSection.style.display =
                             "none";
-
                     }
-
 
                     if (birthdaySection) {
 
                         birthdaySection.classList.add(
                             "scene-active"
                         );
-
                     }
-
 
                     if (memorySection) {
 
                         memorySection.classList.add(
                             "scene-active"
                         );
-
                     }
 
+                    startBirthdayMusic();
 
                     window.scrollTo({
                         top: 0,
@@ -203,25 +177,6 @@ if (surpriseButton) {
                 },
                 1000
             );
-
-        }
-    );
-
-}
-
-
-/* =========================================
-   PREVENT BUTTON FOCUS
-========================================= */
-
-if (surpriseButton) {
-
-    surpriseButton.addEventListener(
-        "mousedown",
-        function () {
-
-            surpriseButton.blur();
-
         }
     );
 
@@ -242,22 +197,17 @@ if (heartButton) {
                 "heart-explode"
             );
 
-
             void heartButton.offsetWidth;
-
 
             heartButton.classList.add(
                 "heart-explode"
             );
 
-
             if (tapMessage) {
 
                 tapMessage.textContent =
                     "You found my heart ❤️";
-
             }
-
 
             createHeartBurst();
 
@@ -280,12 +230,10 @@ function createHeartBurst() {
         "✧"
     ];
 
-
     for (let i = 0; i < 18; i++) {
 
         const particle =
             document.createElement("span");
-
 
         particle.textContent =
             symbols[
@@ -294,7 +242,6 @@ function createHeartBurst() {
                     symbols.length
                 )
             ];
-
 
         particle.style.position =
             "fixed";
@@ -317,44 +264,32 @@ function createHeartBurst() {
         particle.style.color =
             "#ff4f88";
 
-
         const angle =
             Math.random() *
             Math.PI *
             2;
 
-
         const distance =
-            Math.random() *
-            160 +
-            80;
-
+            Math.random() * 160 + 80;
 
         const x =
             Math.cos(angle) *
             distance;
 
-
         const y =
             Math.sin(angle) *
             distance;
 
-
         particle.animate(
-
             [
-
                 {
-
                     transform:
                         "translate(-50%, -50%) scale(0)",
 
                     opacity: 1
-
                 },
 
                 {
-
                     transform:
                         `translate(
                             calc(-50% + ${x}px),
@@ -363,33 +298,23 @@ function createHeartBurst() {
                         scale(1.2)`,
 
                     opacity: 0
-
                 }
-
             ],
-
             {
-
                 duration:
-                    Math.random() *
-                    800 +
-                    800,
+                    Math.random() * 800 + 800,
 
                 easing:
                     "cubic-bezier(0.16, 1, 0.3, 1)",
 
                 fill:
                     "forwards"
-
             }
-
         );
-
 
         document.body.appendChild(
             particle
         );
-
 
         setTimeout(
             function () {
@@ -399,9 +324,7 @@ function createHeartBurst() {
             },
             1800
         );
-
     }
-
 }
 
 
@@ -414,15 +337,11 @@ const birthdayParticles =
         ".particles span"
     );
 
-
 birthdayParticles.forEach(
     function (particle) {
 
         particle.style.left =
-            Math.random() *
-            100 +
-            "%";
-
+            Math.random() * 100 + "%";
     }
 );
 
@@ -436,12 +355,10 @@ const revealElements =
         ".reveal"
     );
 
-
 if (revealElements.length) {
 
     const observer =
         new IntersectionObserver(
-
             function (entries) {
 
                 entries.forEach(
@@ -454,20 +371,16 @@ if (revealElements.length) {
                             entry.target.classList.add(
                                 "visible"
                             );
-
                         }
 
                     }
                 );
 
             },
-
             {
                 threshold: 0.15
             }
-
         );
-
 
     revealElements.forEach(
         function (element) {
@@ -478,7 +391,6 @@ if (revealElements.length) {
 
         }
     );
-
 }
 
 
@@ -496,14 +408,12 @@ if (birthdaySection) {
                 return;
             }
 
-
             const x =
                 (
                     event.clientX /
                     window.innerWidth -
                     0.5
                 ) * 35;
-
 
             const y =
                 (
@@ -512,98 +422,280 @@ if (birthdaySection) {
                     0.5
                 ) * 35;
 
-
             ambientLight.style.transform =
                 `translate(${x}px, ${y}px)`;
 
         }
     );
+}
+
+
+/* =========================================
+   FILM STRIP SCROLL MOVEMENT
+========================================= */
+
+if (filmTrack) {
+
+    window.addEventListener(
+        "scroll",
+        function () {
+
+            if (
+                !memorySection ||
+                !memorySection.classList.contains(
+                    "scene-active"
+                )
+            ) {
+                return;
+            }
+
+            const film =
+                document.querySelector(
+                    ".memory-four"
+                );
+
+            if (!film) {
+                return;
+            }
+
+            const rect =
+                film.getBoundingClientRect();
+
+            const viewport =
+                window.innerHeight;
+
+            const totalDistance =
+                film.offsetHeight -
+                viewport;
+
+            if (
+                totalDistance <= 0
+            ) {
+                return;
+            }
+
+            if (
+                rect.top <= 0 &&
+                rect.bottom >= viewport
+            ) {
+
+                const progress =
+                    Math.min(
+                        1,
+                        Math.max(
+                            0,
+                            -rect.top /
+                            totalDistance
+                        )
+                    );
+
+                const movement =
+                    progress * 850;
+
+                filmTrack.style.transform =
+                    `translateX(-${movement}px)`;
+            }
+
+        },
+        {
+            passive: true
+        }
+    );
+}
+
+
+/* =========================================
+   PREVENT ACCIDENTAL BUTTON FOCUS
+========================================= */
+
+if (surpriseButton) {
+
+    surpriseButton.addEventListener(
+        "mousedown",
+        function () {
+
+            surpriseButton.blur();
+
+        }
+    );
+}
+
+
+/* =========================================
+   ALBUM REVEAL
+========================================= */
+
+/*
+   Album is revealed ONLY after the
+   memory section has finished.
+
+   This is the important fix.
+*/
+
+function showCinematicGallery() {
+
+    if (!cinematicGallery) {
+        return;
+    }
+
+    cinematicGallery.style.display =
+        "block";
+
+    cinematicGallery.classList.add(
+        "scene-active"
+    );
+
+    void cinematicGallery.offsetWidth;
 
 }
 
 
 /* =========================================
-   MEMORY FILM STRIP
+   ALBUM OBSERVER
+========================================= */
+
+if (
+    memoryEnding &&
+    cinematicGallery
+) {
+
+    const galleryRevealObserver =
+        new IntersectionObserver(
+            function (entries) {
+
+                entries.forEach(
+                    function (entry) {
+
+                        if (
+                            entry.isIntersecting
+                        ) {
+
+                            showCinematicGallery();
+
+                            galleryRevealObserver.disconnect();
+
+                        }
+
+                    }
+                );
+
+            },
+            {
+                threshold: 0.15
+            }
+        );
+
+    galleryRevealObserver.observe(
+        memoryEnding
+    );
+}
+
+
+/* =========================================
+   GALLERY ITEM REVEAL
+========================================= */
+
+const galleryItems =
+    document.querySelectorAll(
+        ".gallery-item"
+    );
+
+if (galleryItems.length) {
+
+    const galleryObserver =
+        new IntersectionObserver(
+            function (entries) {
+
+                entries.forEach(
+                    function (entry) {
+
+                        if (
+                            entry.isIntersecting
+                        ) {
+
+                            entry.target.classList.add(
+                                "gallery-visible"
+                            );
+                        }
+
+                    }
+                );
+
+            },
+            {
+                threshold: 0.18
+            }
+        );
+
+    galleryItems.forEach(
+        function (item) {
+
+            galleryObserver.observe(
+                item
+            );
+
+        }
+    );
+}
+
+
+/* =========================================
+   GALLERY PARALLAX
 ========================================= */
 
 window.addEventListener(
     "scroll",
     function () {
 
-        if (
-            !filmTrack ||
-            !memorySection ||
-            !memorySection.classList.contains(
-                "scene-active"
-            )
-        ) {
-
-            return;
-
-        }
-
-
-        const film =
-            document.querySelector(
-                ".memory-four"
+        const items =
+            document.querySelectorAll(
+                ".gallery-item"
             );
 
+        items.forEach(
+            function (item) {
 
-        if (!film) {
-            return;
-        }
+                const image =
+                    item.querySelector(
+                        ".gallery-image"
+                    );
 
+                if (!image) {
+                    return;
+                }
 
-        const rect =
-            film.getBoundingClientRect();
+                const rect =
+                    item.getBoundingClientRect();
 
+                const viewport =
+                    window.innerHeight;
 
-        const viewport =
-            window.innerHeight;
+                if (
+                    rect.bottom < 0 ||
+                    rect.top > viewport
+                ) {
+                    return;
+                }
 
+                const center =
+                    viewport / 2;
 
-        const totalDistance =
-            film.offsetHeight -
-            viewport;
+                const distance =
+                    rect.top +
+                    rect.height / 2 -
+                    center;
 
+                const movement =
+                    distance * -0.035;
 
-        if (
-            totalDistance <= 0
-        ) {
+                image.style.transform =
+                    `scale(1.08)
+                     translateY(${movement}px)`;
 
-            return;
-
-        }
-
-
-        if (
-            rect.top <= 0 &&
-            rect.bottom >= viewport
-        ) {
-
-            const progress =
-                Math.min(
-                    1,
-                    Math.max(
-                        0,
-                        -rect.top /
-                        totalDistance
-                    )
-                );
-
-
-            const movement =
-                progress *
-                850;
-
-
-            filmTrack.style.transform =
-                `translateX(-${movement}px)`;
-
-        }
+            }
+        );
 
     },
-
     {
         passive: true
     }
@@ -611,162 +703,44 @@ window.addEventListener(
 
 
 /* =========================================
-   SHOW CINEMATIC ALBUM AFTER MEMORIES
+   SHOW FINAL QUESTION
 ========================================= */
 
-const memoryEnding =
-    document.querySelector(
-        ".memory-ending"
-    );
+/*
+   IMPORTANT:
+   The final question watches the END
+   of the album — NOT the memory section.
+*/
 
+function showFinalQuestion() {
 
-const galleryEnding =
-    document.querySelector(
-        ".gallery-ending"
-    );
-
-
-let albumShown = false;
-
-
-function showCinematicAlbum() {
-
-    if (
-        !cinematicGallery ||
-        albumShown
-    ) {
-
+    if (!finalQuestionSection) {
         return;
-
     }
 
+    finalQuestionSection.style.display =
+        "flex";
 
-    albumShown = true;
-
-
-    cinematicGallery.style.display =
-        "block";
-
-
-    cinematicGallery.classList.add(
+    finalQuestionSection.classList.add(
         "scene-active"
     );
 
-
-    window.setTimeout(
-        function () {
-
-            cinematicGallery.scrollIntoView({
-
-                behavior: "smooth",
-
-                block: "start"
-
-            });
-
-        },
-        100
-    );
-
-}
-
-
-/*
-   Watch the end of Memories.
-*/
-
-if (
-    memoryEnding &&
-    cinematicGallery
-) {
-
-    const albumObserver =
-        new IntersectionObserver(
-
-            function (entries) {
-
-                entries.forEach(
-                    function (entry) {
-
-                        if (
-                            entry.isIntersecting
-                        ) {
-
-                            showCinematicAlbum();
-
-                            albumObserver.disconnect();
-
-                        }
-
-                    }
-                );
-
-            },
-
-            {
-                threshold: 0.15
-            }
-
-        );
-
-
-    albumObserver.observe(
-        memoryEnding
-    );
+    void finalQuestionSection.offsetWidth;
 
 }
 
 
 /* =========================================
-   SHOW YES / NO AFTER ALBUM
+   FINAL QUESTION OBSERVER
 ========================================= */
-
-let questionShown = false;
-
-
-function showFinalQuestion() {
-
-    if (
-        !finalQuestionSection ||
-        questionShown
-    ) {
-
-        return;
-
-    }
-
-
-    questionShown = true;
-
-
-    finalQuestionSection.style.display =
-        "block";
-
-
-    finalQuestionSection.classList.add(
-        "scene-active"
-    );
-
-
-    finalQuestionSection.classList.add(
-        "visible"
-    );
-
-}
-
-
-/*
-   Watch the end of the album.
-*/
 
 if (
     galleryEnding &&
     finalQuestionSection
 ) {
 
-    const questionObserver =
+    const finalQuestionObserver =
         new IntersectionObserver(
-
             function (entries) {
 
                 entries.forEach(
@@ -778,7 +752,7 @@ if (
 
                             showFinalQuestion();
 
-                            questionObserver.disconnect();
+                            finalQuestionObserver.disconnect();
 
                         }
 
@@ -786,75 +760,22 @@ if (
                 );
 
             },
-
             {
                 threshold: 0.2
             }
-
         );
 
-
-    questionObserver.observe(
+    finalQuestionObserver.observe(
         galleryEnding
     );
-
 }
 
 
 /* =========================================
-   FALLBACK:
-   IF GALLERY ENDING IS NOT AVAILABLE
-========================================= */
-
-if (
-    !galleryEnding &&
-    cinematicGallery &&
-    finalQuestionSection
-) {
-
-    const galleryObserver =
-        new IntersectionObserver(
-
-            function (entries) {
-
-                entries.forEach(
-                    function (entry) {
-
-                        if (
-                            entry.isIntersecting
-                        ) {
-
-                            showFinalQuestion();
-
-                            galleryObserver.disconnect();
-
-                        }
-
-                    }
-                );
-
-            },
-
-            {
-                threshold: 0.8
-            }
-
-        );
-
-
-    galleryObserver.observe(
-        cinematicGallery
-    );
-
-}
-
-
-/* =========================================
-   NO BUTTON — ESCAPE
+   NO BUTTON
 ========================================= */
 
 let noAttempts = 0;
-
 
 const noMessages = [
 
@@ -875,78 +796,62 @@ const noMessages = [
 ];
 
 
+/* =========================================
+   MOVE NO BUTTON
+========================================= */
+
 function moveNoButton() {
 
     if (
         !noButton ||
         !finalQuestionSection
     ) {
-
         return;
-
     }
 
-
     noAttempts++;
-
 
     const button =
         noButton;
 
-
     const buttonWidth =
         button.offsetWidth;
-
 
     const buttonHeight =
         button.offsetHeight;
 
-
-    const padding =
-        20;
-
+    const padding = 20;
 
     const maxX =
         Math.max(
-            padding,
+            0,
             window.innerWidth -
             buttonWidth -
-            padding
+            padding * 2
         );
-
 
     const maxY =
         Math.max(
-            padding,
+            0,
             window.innerHeight -
             buttonHeight -
-            padding
+            padding * 2
         );
-
 
     let randomX =
         Math.random() *
-        (
-            maxX -
-            padding
-        ) +
+        maxX +
         padding;
-
 
     let randomY =
         Math.random() *
-        (
-            maxY -
-            padding
-        ) +
+        maxY +
         padding;
-
 
     if (yesButton) {
 
         const yesRect =
             yesButton.getBoundingClientRect();
-
 
         const distanceX =
             Math.abs(
@@ -954,13 +859,11 @@ function moveNoButton() {
                 yesRect.left
             );
 
-
         const distanceY =
             Math.abs(
                 randomY -
                 yesRect.top
             );
-
 
         if (
             distanceX < 180 &&
@@ -969,10 +872,8 @@ function moveNoButton() {
 
             randomX += 220;
 
-
             if (
-                randomX >
-                maxX
+                randomX > maxX
             ) {
 
                 randomX -= 440;
@@ -980,37 +881,27 @@ function moveNoButton() {
             }
 
         }
-
     }
-
 
     button.style.position =
         "fixed";
 
-
     button.style.left =
-        randomX +
-        "px";
-
+        randomX + "px";
 
     button.style.top =
-        randomY +
-        "px";
-
+        randomY + "px";
 
     button.style.zIndex =
         "9999";
-
 
     const rotation =
         Math.random() *
         16 -
         8;
 
-
     button.style.transform =
         `rotate(${rotation}deg) scale(1.05)`;
-
 
     if (noMessage) {
 
@@ -1022,15 +913,12 @@ function moveNoButton() {
                 )
             ];
 
-
         noMessage.style.opacity =
             "1";
-
 
         clearTimeout(
             window.noMessageTimer
         );
-
 
         window.noMessageTimer =
             setTimeout(
@@ -1042,9 +930,7 @@ function moveNoButton() {
                 },
                 1800
             );
-
     }
-
 }
 
 
@@ -1120,23 +1006,20 @@ if (yesButton) {
         function () {
 
             if (
-                finalQuestionSection
+                !finalQuestionSection
             ) {
-
-                finalQuestionSection.classList.add(
-                    "yes-selected"
-                );
-
+                return;
             }
 
+            finalQuestionSection.classList.add(
+                "yes-selected"
+            );
 
             yesButton.textContent =
                 "I KNEW IT ❤️";
 
-
             yesButton.style.transform =
                 "scale(1.12)";
-
 
             if (noButton) {
 
@@ -1145,67 +1028,68 @@ if (yesButton) {
 
                 noButton.style.pointerEvents =
                     "none";
-
             }
 
-
             createFinalHeartBurst();
-
 
             setTimeout(
                 function () {
 
-                    const letter =
-                        document.getElementById(
-                            "loveLetterSection"
-                        );
+                    /*
+                       Hide question.
+                    */
+
+                    finalQuestionSection.classList.remove(
+                        "scene-active"
+                    );
+
+                    finalQuestionSection.style.display =
+                        "none";
 
 
-                    if (
-                        finalQuestionSection
-                    ) {
+                    /*
+                       Hide album completely
+                       before moving to letter.
+                    */
 
-                        finalQuestionSection.classList.remove(
+                    if (cinematicGallery) {
+
+                        cinematicGallery.classList.remove(
                             "scene-active"
                         );
-
-
-                        finalQuestionSection.style.display =
-                            "none";
-
-                    }
-
-
-                    if (
-                        cinematicGallery
-                    ) {
 
                         cinematicGallery.style.display =
                             "none";
-
                     }
 
 
-                    if (letter) {
+                    /*
+                       Show love letter.
+                    */
 
-                        letter.style.display =
+                    if (loveLetter) {
+
+                        loveLetter.style.display =
                             "block";
 
-
-                        letter.classList.add(
+                        loveLetter.classList.add(
                             "scene-active"
                         );
 
-
-                        letter.classList.add(
+                        loveLetter.classList.add(
                             "visible"
                         );
 
 
+                        /*
+                           Scroll directly
+                           to love letter.
+                        */
+
                         requestAnimationFrame(
                             function () {
 
-                                letter.scrollIntoView({
+                                loveLetter.scrollIntoView({
 
                                     behavior:
                                         "smooth",
@@ -1227,7 +1111,6 @@ if (yesButton) {
 
                             }
                         );
-
                     }
 
                 },
@@ -1257,18 +1140,10 @@ function createFinalHeartBurst() {
 
     ];
 
-
-    for (
-        let i = 0;
-        i < 45;
-        i++
-    ) {
+    for (let i = 0; i < 45; i++) {
 
         const particle =
-            document.createElement(
-                "span"
-            );
-
+            document.createElement("span");
 
         particle.textContent =
             symbols[
@@ -1278,82 +1153,67 @@ function createFinalHeartBurst() {
                 )
             ];
 
-
         particle.style.position =
             "fixed";
-
 
         particle.style.left =
             "50%";
 
-
         particle.style.top =
             "50%";
-
 
         particle.style.zIndex =
             "10000";
 
-
         particle.style.pointerEvents =
             "none";
 
-
         particle.style.fontSize =
-            Math.random() *
-            20 +
+            Math.random() * 20 +
             10 +
             "px";
-
 
         const angle =
             Math.random() *
             Math.PI *
             2;
 
-
         const distance =
             Math.random() *
             350 +
             100;
 
-
         const x =
             Math.cos(angle) *
             distance;
-
 
         const y =
             Math.sin(angle) *
             distance;
 
-
         particle.animate(
-
             [
 
                 {
-
                     transform:
                         "translate(-50%, -50%) scale(0)",
 
-                    opacity: 0
-
+                    opacity:
+                        0
                 },
 
                 {
-
                     transform:
                         "translate(-50%, -50%) scale(1.2)",
 
-                    opacity: 1,
+                    opacity:
+                        1,
 
-                    offset: 0.15
-
+                    offset:
+                        0.15
                 },
 
                 {
-
                     transform:
                         `translate(
                             calc(-50% + ${x}px),
@@ -1361,12 +1221,11 @@ function createFinalHeartBurst() {
                         )
                         scale(.7)`,
 
-                    opacity: 0
-
+                    opacity:
+                        0
                 }
 
             ],
-
             {
 
                 duration:
@@ -1381,14 +1240,11 @@ function createFinalHeartBurst() {
                     "forwards"
 
             }
-
         );
-
 
         document.body.appendChild(
             particle
         );
-
 
         setTimeout(
             function () {
@@ -1398,9 +1254,7 @@ function createFinalHeartBurst() {
             },
             2800
         );
-
     }
-
 }
 
 
@@ -1410,22 +1264,14 @@ function createFinalHeartBurst() {
 
 function revealLoveLetter() {
 
-    const letter =
-        document.getElementById(
-            "loveLetterSection"
-        );
-
-
-    if (!letter) {
+    if (!loveLetter) {
         return;
     }
 
-
     const paragraphs =
-        letter.querySelectorAll(
+        loveLetter.querySelectorAll(
             ".letter-paragraph"
         );
-
 
     paragraphs.forEach(
         function (
@@ -1436,17 +1282,14 @@ function revealLoveLetter() {
             paragraph.style.opacity =
                 "0";
 
-
             paragraph.style.transform =
                 "translateY(30px)";
-
 
             setTimeout(
                 function () {
 
                     paragraph.style.opacity =
                         "1";
-
 
                     paragraph.style.transform =
                         "translateY(0)";
@@ -1458,12 +1301,11 @@ function revealLoveLetter() {
 
         }
     );
-
 }
 
 
 /* =========================================
-   GRAND FINALE
+   LOVE LETTER → GRAND FINALE
 ========================================= */
 
 const letterContinue =
@@ -1472,14 +1314,108 @@ const letterContinue =
     );
 
 
-if (
-    letterContinue &&
-    grandFinale
-) {
+/* =========================================
+   CREATE FINALE TRANSITION OVERLAY
+========================================= */
+
+const finaleOverlay =
+    document.createElement(
+        "div"
+    );
+
+finaleOverlay.className =
+    "finale-transition-overlay";
+
+document.body.appendChild(
+    finaleOverlay
+);
+
+
+/* =========================================
+   CINEMATIC FINALE TRANSITION
+========================================= */
+
+function cinematicFinaleTransition() {
+
+    if (
+        !loveLetter ||
+        !finale
+    ) {
+        return;
+    }
+
+    finaleOverlay.classList.add(
+        "active"
+    );
+
+    loveLetter.classList.add(
+        "letter-ending"
+    );
+
+    setTimeout(
+        function () {
+
+            loveLetter.style.display =
+                "none";
+
+            finale.style.display =
+                "flex";
+
+            finale.classList.add(
+                "scene-active"
+            );
+
+            void finale.offsetWidth;
+
+            finale.classList.add(
+                "finale-revealed"
+            );
+
+            setTimeout(
+                function () {
+
+                    startGrandFinaleReveal();
+
+                },
+                800
+            );
+
+            finale.scrollIntoView({
+
+                behavior:
+                    "instant",
+
+                block:
+                    "start"
+
+            });
+
+        },
+        1500
+    );
+
+
+    setTimeout(
+        function () {
+
+            finaleOverlay.classList.remove(
+                "active"
+            );
+
+        },
+        3500
+    );
+}
+
+
+/* =========================================
+   DETECT END OF LOVE LETTER
+========================================= */
+
+if (letterContinue) {
 
     const finaleObserver =
         new IntersectionObserver(
-
             function (entries) {
 
                 entries.forEach(
@@ -1499,155 +1435,19 @@ if (
                 );
 
             },
-
             {
                 threshold: 0.6
             }
-
         );
-
 
     finaleObserver.observe(
         letterContinue
     );
-
 }
 
 
 /* =========================================
-   FINALE TRANSITION OVERLAY
-========================================= */
-
-let finaleOverlay = null;
-
-
-function createFinaleOverlay() {
-
-    if (finaleOverlay) {
-        return;
-    }
-
-
-    finaleOverlay =
-        document.createElement(
-            "div"
-        );
-
-
-    finaleOverlay.className =
-        "finale-transition-overlay";
-
-
-    document.body.appendChild(
-        finaleOverlay
-    );
-
-}
-
-
-/* Create it immediately */
-
-createFinaleOverlay();
-
-
-/* =========================================
-   CINEMATIC FINALE TRANSITION
-========================================= */
-
-function cinematicFinaleTransition() {
-
-    if (
-        !loveLetterSection ||
-        !grandFinale
-    ) {
-
-        return;
-
-    }
-
-
-    createFinaleOverlay();
-
-
-    finaleOverlay.classList.add(
-        "active"
-    );
-
-
-    loveLetterSection.classList.add(
-        "letter-ending"
-    );
-
-
-    setTimeout(
-        function () {
-
-            loveLetterSection.style.display =
-                "none";
-
-
-            grandFinale.style.display =
-                "flex";
-
-
-            grandFinale.classList.add(
-                "scene-active"
-            );
-
-
-            void grandFinale.offsetWidth;
-
-
-            grandFinale.classList.add(
-                "finale-revealed"
-            );
-
-
-            setTimeout(
-                function () {
-
-                    startGrandFinaleReveal();
-
-                },
-                800
-            );
-
-
-            grandFinale.scrollIntoView({
-
-                behavior:
-                    "instant",
-
-                block:
-                    "start"
-
-            });
-
-        },
-        1500
-    );
-
-
-    setTimeout(
-        function () {
-
-            if (finaleOverlay) {
-
-                finaleOverlay.classList.remove(
-                    "active"
-                );
-
-            }
-
-        },
-        3500
-    );
-
-}
-
-
-/* =========================================
-   FINALE HEART BURST
+   GRAND FINALE HEART BURST
 ========================================= */
 
 function createFinaleHeartBurst() {
@@ -1663,18 +1463,12 @@ function createFinaleHeartBurst() {
 
     ];
 
-
-    for (
-        let i = 0;
-        i < 35;
-        i++
-    ) {
+    for (let i = 0; i < 35; i++) {
 
         const particle =
             document.createElement(
                 "span"
             );
-
 
         particle.textContent =
             symbols[
@@ -1684,26 +1478,20 @@ function createFinaleHeartBurst() {
                 )
             ];
 
-
         particle.style.position =
             "fixed";
-
 
         particle.style.left =
             "50%";
 
-
         particle.style.top =
             "45%";
-
 
         particle.style.zIndex =
             "10000";
 
-
         particle.style.pointerEvents =
             "none";
-
 
         particle.style.fontSize =
             Math.random() *
@@ -1711,45 +1499,36 @@ function createFinaleHeartBurst() {
             10 +
             "px";
 
-
         const angle =
             Math.random() *
             Math.PI *
             2;
-
 
         const distance =
             Math.random() *
             300 +
             80;
 
-
         const x =
             Math.cos(angle) *
             distance;
-
 
         const y =
             Math.sin(angle) *
             distance;
 
-
         particle.animate(
-
             [
 
                 {
-
                     transform:
                         "translate(-50%, -50%) scale(0)",
 
                     opacity:
                         0
-
                 },
 
                 {
-
                     transform:
                         "translate(-50%, -50%) scale(1)",
 
@@ -1758,11 +1537,9 @@ function createFinaleHeartBurst() {
 
                     offset:
                         0.15
-
                 },
 
                 {
-
                     transform:
                         `translate(
                             calc(-50% + ${x}px),
@@ -1772,11 +1549,9 @@ function createFinaleHeartBurst() {
 
                     opacity:
                         0
-
                 }
 
             ],
-
             {
 
                 duration:
@@ -1791,14 +1566,11 @@ function createFinaleHeartBurst() {
                     "forwards"
 
             }
-
         );
-
 
         document.body.appendChild(
             particle
         );
-
 
         setTimeout(
             function () {
@@ -1808,9 +1580,7 @@ function createFinaleHeartBurst() {
             },
             3000
         );
-
     }
-
 }
 
 
@@ -1824,15 +1594,14 @@ function startBirthdayMusic() {
         return;
     }
 
-
-    if (!birthdayMusic.paused) {
+    if (
+        !birthdayMusic.paused
+    ) {
         return;
     }
 
-
     birthdayMusic.volume =
         0.45;
-
 
     birthdayMusic.play()
         .then(
@@ -1854,158 +1623,18 @@ function startBirthdayMusic() {
 
             }
         );
-
 }
 
 
 /* =========================================
-   START MUSIC WHEN SURPRISE OPENS
+   MUSIC BACKUP
 ========================================= */
 
-if (surpriseButton) {
+if (birthdayMusic) {
 
-    surpriseButton.addEventListener(
-        "click",
-        function () {
-
-            startBirthdayMusic();
-
-        }
-    );
-
+    birthdayMusic.volume =
+        0.45;
 }
-
-
-/* =========================================
-   CINEMATIC GALLERY ANIMATIONS
-========================================= */
-
-const galleryItems =
-    document.querySelectorAll(
-        ".gallery-item"
-    );
-
-
-if (galleryItems.length) {
-
-    const galleryItemObserver =
-        new IntersectionObserver(
-
-            function (entries) {
-
-                entries.forEach(
-                    function (entry) {
-
-                        if (
-                            entry.isIntersecting
-                        ) {
-
-                            entry.target.classList.add(
-                                "gallery-visible"
-                            );
-
-                        }
-
-                    }
-                );
-
-            },
-
-            {
-                threshold:
-                    0.18
-            }
-
-        );
-
-
-    galleryItems.forEach(
-        function (item) {
-
-            galleryItemObserver.observe(
-                item
-            );
-
-        }
-    );
-
-}
-
-
-/* =========================================
-   GALLERY PARALLAX
-========================================= */
-
-window.addEventListener(
-    "scroll",
-    function () {
-
-        const items =
-            document.querySelectorAll(
-                ".gallery-item"
-            );
-
-
-        items.forEach(
-            function (item) {
-
-                const image =
-                    item.querySelector(
-                        ".gallery-image"
-                    );
-
-
-                if (!image) {
-                    return;
-                }
-
-
-                const rect =
-                    item.getBoundingClientRect();
-
-
-                const viewport =
-                    window.innerHeight;
-
-
-                if (
-                    rect.bottom < 0 ||
-                    rect.top > viewport
-                ) {
-
-                    return;
-
-                }
-
-
-                const center =
-                    viewport / 2;
-
-
-                const distance =
-                    rect.top +
-                    rect.height / 2 -
-                    center;
-
-
-                const movement =
-                    distance *
-                    -0.035;
-
-
-                image.style.transform =
-                    `scale(1.08)
-                     translateY(${movement}px)`;
-
-            }
-        );
-
-    },
-
-    {
-        passive: true
-    }
-);
 
 
 /* =========================================
@@ -2020,7 +1649,6 @@ document.addEventListener(
             "--cursor-x",
             event.clientX + "px"
         );
-
 
         document.documentElement.style.setProperty(
             "--cursor-y",
@@ -2037,28 +1665,29 @@ document.addEventListener(
 
 function startGrandFinaleReveal() {
 
-    if (!grandFinale) {
+    if (!finale) {
         return;
     }
 
-
     const lines =
-        grandFinale.querySelectorAll(
+        finale.querySelectorAll(
             ".finale-line"
         );
 
-
     const birthdayMessage =
-        grandFinale.querySelector(
+        finale.querySelector(
             ".final-birthday-message"
         );
 
-
     const finalHeart =
-        grandFinale.querySelector(
+        finale.querySelector(
             ".final-heart-small"
         );
 
+
+    /*
+       Reset everything.
+    */
 
     lines.forEach(
         function (line) {
@@ -2089,6 +1718,10 @@ function startGrandFinaleReveal() {
     }
 
 
+    /*
+       Reveal each line.
+    */
+
     lines.forEach(
         function (
             line,
@@ -2111,6 +1744,10 @@ function startGrandFinaleReveal() {
     );
 
 
+    /*
+       Birthday message.
+    */
+
     if (birthdayMessage) {
 
         setTimeout(
@@ -2122,13 +1759,16 @@ function startGrandFinaleReveal() {
 
             },
             1000 +
-            lines.length *
-            1000 +
+            lines.length * 1000 +
             700
         );
 
     }
 
+
+    /*
+       Final heart.
+    */
 
     if (finalHeart) {
 
@@ -2139,53 +1779,14 @@ function startGrandFinaleReveal() {
                     "final-heart-reveal"
                 );
 
+                createFinaleHeartBurst();
+
             },
             1000 +
-            lines.length *
-            1000 +
+            lines.length * 1000 +
             2200
         );
 
     }
 
-
-    createFinaleHeartBurst();
-
 }
-
-
-/* =========================================
-   SAFETY RESET ON PAGE LOAD
-========================================= */
-
-window.addEventListener(
-    "load",
-    function () {
-
-        /*
-           Keep the album hidden until
-           the Memories section is reached.
-        */
-
-        if (cinematicGallery) {
-
-            cinematicGallery.style.display =
-                "none";
-
-        }
-
-
-        /*
-           Keep YES / NO hidden until
-           the album is completed.
-        */
-
-        if (finalQuestionSection) {
-
-            finalQuestionSection.style.display =
-                "none";
-
-        }
-
-    }
-);
